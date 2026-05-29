@@ -1,0 +1,26 @@
+name: Test specific version installation
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          just-version: '1.25.2'
+      - name: Assert just is installed at correct version
+        run: |
+          echo "Checking just is available..."
+          if ! command -v just &>/dev/null; then
+            echo "FAIL: 'just' command not found in PATH"
+            exit 1
+          fi
+          INSTALLED_VERSION="$(just --version | awk '{print $2}')"
+          echo "installed version: $INSTALLED_VERSION"
+          if [ "$INSTALLED_VERSION" != "1.25.2" ]; then
+            echo "FAIL: expected version '1.25.2', got '$INSTALLED_VERSION'"
+            exit 1
+          fi
+          echo "PASS"
