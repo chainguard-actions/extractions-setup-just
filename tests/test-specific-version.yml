@@ -1,0 +1,30 @@
+name: Test setup-just with specific version
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          just-version: 1.25.0
+      - name: Assert just is installed
+        run: |
+          echo "just version output:"
+          just --version
+          if ! just --version; then
+            echo "FAIL: just is not installed or not executable"
+            exit 1
+          fi
+          echo "PASS: just is installed"
+      - name: Assert just version matches expected
+        run: |
+          ACTUAL=$(just --version)
+          echo "actual: $ACTUAL"
+          if ! echo "$ACTUAL" | grep -q "1.25.0"; then
+            echo "FAIL: expected version 1.25.0 but got: $ACTUAL"
+            exit 1
+          fi
+          echo "PASS: version matches 1.25.0"

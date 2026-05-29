@@ -1,0 +1,28 @@
+name: Test setup-just basic usage (latest version)
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+      - name: Assert just is installed
+        run: |
+          echo "just version output:"
+          just --version
+          if ! just --version; then
+            echo "FAIL: just is not installed or not executable"
+            exit 1
+          fi
+          echo "PASS: just is installed and executable"
+      - name: Assert just is on PATH
+        run: |
+          JUST_PATH=$(which just)
+          echo "just path: $JUST_PATH"
+          if [ -z "$JUST_PATH" ]; then
+            echo "FAIL: just not found on PATH"
+            exit 1
+          fi
+          echo "PASS: just is on PATH at $JUST_PATH"
