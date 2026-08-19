@@ -1,17 +1,71 @@
-# extractions/setup-just
+# 🤖 `setup-just` action
 
-Install the just command runner
+[![Build Status](https://github.com/extractions/setup-just/actions/workflows/build.yaml/badge.svg)](https://github.com/extractions/setup-just/actions/workflows/build.yaml)
 
-Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at [https://github.com/extractions/setup-just](https://github.com/extractions/setup-just).
+This GitHub Action will install a release of the
+[just](https://github.com/casey/just) command runner for you.
 
-## Versions
+## Usage
 
-| Version | Tag | Upstream commit |
-|---------|-----|-----------------|
-| v1 | [`v1`](https://github.com/chainguard-actions/extractions-setup-just/tree/v1) | [`69d82fb`](https://github.com/extractions/setup-just/commit/69d82fb0233557aec017ef13706851d0694e0f1d) |
-| v2 | [`v2`](https://github.com/chainguard-actions/extractions-setup-just/tree/v2) | [`dd310ad`](https://github.com/extractions/setup-just/commit/dd310ad5a97d8e7b41793f8ef055398d51ad4de6) |
-| v3 | [`v3`](https://github.com/chainguard-actions/extractions-setup-just/tree/v3) | [`f8a3cce`](https://github.com/extractions/setup-just/commit/f8a3cce218d9f83db3a2ecd90e41ac3de6cdfd9b) |
-| v4 | [`v4`](https://github.com/chainguard-actions/extractions-setup-just/tree/v4) | [`53165ef`](https://github.com/extractions/setup-just/commit/53165ef7e734c5c07cb06b3c8e7b647c5aa16db3) |
+### Examples
+
+In most cases all you will need is the following in your workflow.
+
+```yaml
+- uses: extractions/setup-just@v4
+```
+
+If you want a specific version of `just` you can specify this by passing the
+`just-version` input.
+
+```yaml
+- uses: extractions/setup-just@v4
+  with:
+    just-version: '1.46.0'
+```
+
+To avoid rate-limiting, the default Github token (available to all actions) is
+automatically used to authenticate calls to Github. To override it, pass the
+input `github-token`.
+
+```yaml
+- uses: extractions/setup-just@v4
+  with:
+    github-token: ${{ secrets.MY_GITHUB_TOKEN }}
+```
+
+### Inputs
+
+| Name           | Required | Description                                  | Type   | Default               |
+| -------------- | -------- | -------------------------------------------- | ------ | --------------------- |
+| `just-version` | no       | A valid NPM-style semver specification.      | string | *                     |
+| `github-token` | no       | A Github token to authenticate API requests. | string | `${{ github.token }}` |
+
+The semver specification is passed directly to NPM's [semver
+package](https://www.npmjs.com/package/semver). This GitHub Action will install
+the latest matching release. Examples include
+
+- `just-version: '*'` latest version (default).
+- `just-version: '1'` equivalent to `>=1.0.0 <2.0.0`.
+- `just-version: '1.2'` equivalent to `>=1.2.0 <2.0.0`.
+- `just-version: '1.2.3'` equivalent to `=1.2.3`.
+- `just-version: '^1.2.3'` equivalent to `>=1.2.3 <2.0.0`.
+
+## Development
+
+This action is a composite action and the installation logic is done in a shared
+library located at
+[@extractions/setup-crate](https://github.com/extractions/setup-crate).
+
+## License
+
+Licensed under either of
+
+- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or
+   http://www.apache.org/licenses/LICENSE-2.0)
+- MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
+
+at your option.
 
 ## Privacy
 
