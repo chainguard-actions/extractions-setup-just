@@ -12,6 +12,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 | v2 | [`v2`](https://github.com/chainguard-actions/extractions-setup-just/tree/v2) | [`dd310ad`](https://github.com/extractions/setup-just/commit/dd310ad5a97d8e7b41793f8ef055398d51ad4de6) |
 | v3 | [`v3`](https://github.com/chainguard-actions/extractions-setup-just/tree/v3) | [`f8a3cce`](https://github.com/extractions/setup-just/commit/f8a3cce218d9f83db3a2ecd90e41ac3de6cdfd9b) |
 | v4 | [`v4`](https://github.com/chainguard-actions/extractions-setup-just/tree/v4) | [`53165ef`](https://github.com/extractions/setup-just/commit/53165ef7e734c5c07cb06b3c8e7b647c5aa16db3) |
+| v4.0.0 | [`v4.0.0`](https://github.com/chainguard-actions/extractions-setup-just/tree/v4.0.0) | [`53165ef`](https://github.com/extractions/setup-just/commit/53165ef7e734c5c07cb06b3c8e7b647c5aa16db3) |
 
 ## Privacy
 
