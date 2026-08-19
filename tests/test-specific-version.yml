@@ -1,4 +1,4 @@
-name: Test specific just version
+name: Test specific version installation
 on:
   workflow_dispatch:
 jobs:
@@ -6,16 +6,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - id: action
+      - id: setup-just
         uses: .
         with:
-          just-version: "1.34.0"
-      - name: Assert just is installed with correct version
+          just-version: '1.36.0'
+      - name: Assert just is installed and executable
         run: |
-          INSTALLED_VERSION=$(just --version | awk '{print $2}')
-          echo "installed version: $INSTALLED_VERSION"
-          if [ "$INSTALLED_VERSION" != "1.34.0" ]; then
-            echo "FAIL: expected version '1.34.0' but got '$INSTALLED_VERSION'"
+          echo "Checking just is on PATH..."
+          if ! command -v just &>/dev/null; then
+            echo "FAIL: just not found on PATH"
             exit 1
           fi
-          echo "PASS"
+          echo "PASS: just found at $(command -v just)"
+      - name: Assert just version matches requested version
+        run: |
+          VERSION=$(just --version)
+          echo "just version output: $VERSION"
+          if echo "$VERSION" | grep -qF '1.36.0'; then
+            echo "PASS: just version is 1.36.0"
+          else
+            echo "FAIL: expected version 1.36.0 but got: $VERSION"
+            exit 1
+          fi
