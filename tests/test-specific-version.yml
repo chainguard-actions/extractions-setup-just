@@ -1,4 +1,4 @@
-name: Test specific just version
+name: Test specific version installation
 on:
   workflow_dispatch:
 jobs:
@@ -9,13 +9,19 @@ jobs:
       - id: action
         uses: .
         with:
-          just-version: "1.14.0"
-      - name: Assert just is installed at the correct version
+          just-version: '1.14.0'
+          github-token: ${{ github.token }}
+      - name: Assert just is installed at the requested version
         run: |
-          ACTUAL=$(just --version 2>&1)
-          echo "actual: $ACTUAL"
-          if ! echo "$ACTUAL" | grep -q "1.14.0"; then
-            echo "FAIL: expected just version 1.14.0, got: $ACTUAL"
+          echo "Checking just is on PATH..."
+          if ! command -v just >/dev/null 2>&1; then
+            echo "FAIL: 'just' not found on PATH"
             exit 1
           fi
-          echo "PASS"
+          VERSION_OUTPUT="$(just --version 2>&1)"
+          echo "just --version output: $VERSION_OUTPUT"
+          if ! echo "$VERSION_OUTPUT" | grep -q '1.14.0'; then
+            echo "FAIL: expected version 1.14.0 but got: $VERSION_OUTPUT"
+            exit 1
+          fi
+          echo "PASS: just 1.14.0 is installed"

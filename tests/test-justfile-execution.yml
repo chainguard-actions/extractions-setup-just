@@ -1,0 +1,25 @@
+name: Test just can execute a justfile
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          github-token: ${{ github.token }}
+      - name: Create a justfile and run it
+        run: |
+          cat > /tmp/justfile <<'EOF'
+          hello:
+            echo "hello from just"
+          EOF
+          OUTPUT="$(just --justfile /tmp/justfile hello 2>&1)"
+          echo "just output: $OUTPUT"
+          if ! echo "$OUTPUT" | grep -q 'hello from just'; then
+            echo "FAIL: expected 'hello from just' in output but got: $OUTPUT"
+            exit 1
+          fi
+          echo "PASS: just executed the justfile successfully"
