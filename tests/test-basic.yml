@@ -1,4 +1,4 @@
-name: Test setup-just basic usage (latest version)
+name: Test basic usage (latest just)
 on:
   workflow_dispatch:
 jobs:
@@ -10,19 +10,10 @@ jobs:
         uses: .
       - name: Assert just is installed
         run: |
-          echo "just version output:"
-          just --version
-          if ! just --version; then
-            echo "FAIL: just is not installed or not executable"
-            exit 1
-          fi
-          echo "PASS: just is installed and executable"
-      - name: Assert just is on PATH
-        run: |
-          JUST_PATH=$(which just)
-          echo "just path: $JUST_PATH"
-          if [ -z "$JUST_PATH" ]; then
+          echo "Checking just is on PATH..."
+          if ! command -v just >/dev/null 2>&1; then
             echo "FAIL: just not found on PATH"
             exit 1
           fi
-          echo "PASS: just is on PATH at $JUST_PATH"
+          echo "just version: $(just --version)"
+          echo "PASS"

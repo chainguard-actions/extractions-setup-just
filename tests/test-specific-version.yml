@@ -1,4 +1,4 @@
-name: Test setup-just with specific version
+name: Test specific version installation
 on:
   workflow_dispatch:
 jobs:
@@ -9,22 +9,19 @@ jobs:
       - id: action
         uses: .
         with:
-          just-version: 1.25.0
-      - name: Assert just is installed
+          just-version: 1.36.0
+      - name: Assert just is installed at the correct version
         run: |
-          echo "just version output:"
-          just --version
-          if ! just --version; then
-            echo "FAIL: just is not installed or not executable"
+          echo "Checking just is on PATH..."
+          if ! command -v just >/dev/null 2>&1; then
+            echo "FAIL: just not found on PATH"
             exit 1
           fi
-          echo "PASS: just is installed"
-      - name: Assert just version matches expected
-        run: |
-          ACTUAL=$(just --version)
-          echo "actual: $ACTUAL"
-          if ! echo "$ACTUAL" | grep -q "1.25.0"; then
-            echo "FAIL: expected version 1.25.0 but got: $ACTUAL"
+          ACTUAL_VERSION="$(just --version)"
+          echo "just version: $ACTUAL_VERSION"
+          if echo "$ACTUAL_VERSION" | grep -qF "1.36.0"; then
+            echo "PASS: correct version installed"
+          else
+            echo "FAIL: expected version 1.36.0 but got: $ACTUAL_VERSION"
             exit 1
           fi
-          echo "PASS: version matches 1.25.0"
