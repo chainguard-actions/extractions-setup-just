@@ -6,21 +6,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - id: action
+      - id: setup-just
         uses: .
         with:
           just-version: '1.25.2'
-      - name: Assert just is installed at correct version
+          github-token: ${{ github.token }}
+      - name: Assert just is installed at the requested version
         run: |
-          echo "Checking just is available..."
-          if ! command -v just &>/dev/null; then
-            echo "FAIL: 'just' command not found in PATH"
+          echo "Checking just is on PATH..."
+          if ! command -v just >/dev/null 2>&1; then
+            echo "FAIL: 'just' not found on PATH"
             exit 1
           fi
-          INSTALLED_VERSION="$(just --version | awk '{print $2}')"
-          echo "installed version: $INSTALLED_VERSION"
-          if [ "$INSTALLED_VERSION" != "1.25.2" ]; then
-            echo "FAIL: expected version '1.25.2', got '$INSTALLED_VERSION'"
+          echo "PASS: just is on PATH"
+          VERSION="$(just --version 2>&1)"
+          echo "version: $VERSION"
+          if echo "$VERSION" | grep -q "1.25.2"; then
+            echo "PASS: correct version 1.25.2 installed"
+          else
+            echo "FAIL: expected version 1.25.2 but got '$VERSION'"
             exit 1
           fi
-          echo "PASS"

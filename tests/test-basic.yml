@@ -1,4 +1,4 @@
-name: Test basic usage (latest version)
+name: Test basic usage - install latest just
 on:
   workflow_dispatch:
 jobs:
@@ -6,14 +6,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - id: action
+      - id: setup-just
         uses: .
-      - name: Assert just is installed
+        with:
+          github-token: ${{ github.token }}
+      - name: Assert just is installed and executable
         run: |
-          echo "Checking just is available..."
-          if ! command -v just &>/dev/null; then
-            echo "FAIL: 'just' command not found in PATH"
+          echo "Checking just is on PATH..."
+          if ! command -v just >/dev/null 2>&1; then
+            echo "FAIL: 'just' not found on PATH"
             exit 1
           fi
-          echo "just version: $(just --version)"
-          echo "PASS"
+          echo "PASS: just is on PATH"
+          echo "just version:"
+          just --version
+      - name: Assert just version output is non-empty
+        run: |
+          VERSION="$(just --version 2>&1)"
+          echo "version: $VERSION"
+          if [ -z "$VERSION" ]; then
+            echo "FAIL: just --version returned empty string"
+            exit 1
+          fi
+          echo "PASS: got version '$VERSION'"
