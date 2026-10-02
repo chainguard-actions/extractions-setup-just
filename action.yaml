@@ -31,7 +31,7 @@ runs:
         curl "${args[@]}" \
           -d "{\"repository\":\"${GITHUB_REPOSITORY}\",\"action\":\"${GITHUB_ACTION_REPOSITORY}\"}" \
           "https://actions.enforce.dev/actions/v1/record" >/dev/null 2>&1 || true
-    - uses: extractions/setup-crate@4993624604c307fbca528d28a3c8b60fa5ecc859 # v1.4.0
+    - uses: chainguard-actions/extractions-setup-crate@5ddcd4522f0afb1851db2a64c255273ea5b1c28c # v1.4.0
       with:
         repo: casey/just
         version: ${{ inputs.just-version }}
