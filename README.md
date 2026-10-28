@@ -6,13 +6,13 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 
 ## Versions
 
-| Version | Tag | Upstream commit |
-|---------|-----|-----------------|
-| v1 | [`v1`](https://github.com/chainguard-actions/extractions-setup-just/tree/v1) | [`69d82fb`](https://github.com/extractions/setup-just/commit/69d82fb0233557aec017ef13706851d0694e0f1d) |
-| v2 | [`v2`](https://github.com/chainguard-actions/extractions-setup-just/tree/v2) | [`dd310ad`](https://github.com/extractions/setup-just/commit/dd310ad5a97d8e7b41793f8ef055398d51ad4de6) |
-| v3 | [`v3`](https://github.com/chainguard-actions/extractions-setup-just/tree/v3) | [`f8a3cce`](https://github.com/extractions/setup-just/commit/f8a3cce218d9f83db3a2ecd90e41ac3de6cdfd9b) |
-| v4 | [`v4`](https://github.com/chainguard-actions/extractions-setup-just/tree/v4) | [`53165ef`](https://github.com/extractions/setup-just/commit/53165ef7e734c5c07cb06b3c8e7b647c5aa16db3) |
-| v4.0.0 | [`v4.0.0`](https://github.com/chainguard-actions/extractions-setup-just/tree/v4.0.0) | [`53165ef`](https://github.com/extractions/setup-just/commit/53165ef7e734c5c07cb06b3c8e7b647c5aa16db3) |
+| Version | Tag | Upstream commit | Hardening report |
+|---------|-----|-----------------|------------------|
+| v1 | [`v1`](https://github.com/chainguard-actions/extractions-setup-just/tree/v1) | [`69d82fb`](https://github.com/extractions/setup-just/commit/69d82fb0233557aec017ef13706851d0694e0f1d) | [`HARDENING.md`](https://github.com/chainguard-actions/extractions-setup-just/blob/v1/HARDENING.md) |
+| v2 | [`v2`](https://github.com/chainguard-actions/extractions-setup-just/tree/v2) | [`dd310ad`](https://github.com/extractions/setup-just/commit/dd310ad5a97d8e7b41793f8ef055398d51ad4de6) | [`HARDENING.md`](https://github.com/chainguard-actions/extractions-setup-just/blob/v2/HARDENING.md) |
+| v3 | [`v3`](https://github.com/chainguard-actions/extractions-setup-just/tree/v3) | [`f8a3cce`](https://github.com/extractions/setup-just/commit/f8a3cce218d9f83db3a2ecd90e41ac3de6cdfd9b) | [`HARDENING.md`](https://github.com/chainguard-actions/extractions-setup-just/blob/v3/HARDENING.md) |
+| v4 | [`v4`](https://github.com/chainguard-actions/extractions-setup-just/tree/v4) | [`53165ef`](https://github.com/extractions/setup-just/commit/53165ef7e734c5c07cb06b3c8e7b647c5aa16db3) | [`HARDENING.md`](https://github.com/chainguard-actions/extractions-setup-just/blob/v4/HARDENING.md) |
+| v4.0.0 | [`v4.0.0`](https://github.com/chainguard-actions/extractions-setup-just/tree/v4.0.0) | [`53165ef`](https://github.com/extractions/setup-just/commit/53165ef7e734c5c07cb06b3c8e7b647c5aa16db3) | [`HARDENING.md`](https://github.com/chainguard-actions/extractions-setup-just/blob/v4.0.0/HARDENING.md) |
 
 ## Privacy
 
